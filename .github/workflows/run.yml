@@ -22,13 +22,10 @@ jobs:
         run: |
           pip install papermill jupyter
 
-      - name: Run Notebook (Papermill)
-        run: |
-          papermill myscript.ipynb output.ipynb
-
       - name: Run Python script (alternative)
         run: |
-          python [jobsgo][pipeline_region].py || true
+          python '[jobsgo][pipeline_region].py' || true
+
 
       - name: Upload result as artifact
         uses: actions/upload-artifact@v4
