@@ -1,4 +1,3 @@
-name: Run Notebook on Schedule
 on:
   schedule:
     - cron: "0 17 * * *"   # 00:00 Asia/Ho_Chi_Minh = 17:00 UTC
@@ -10,9 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
-      - run: pip install papermill jupyter
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install papermill jupyter gspread oauth2client
+
       - name: Execute notebook
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
         run: |
           papermill "[Jobsgo][Pipeline_Region].ipynb" /dev/null
-
