@@ -14,9 +14,5 @@ jobs:
       - run: pip install papermill jupyter
       - name: Execute notebook
         run: |
-          papermill "[Jobsgo][Pipeline_Region].ipynb" out/output.ipynb
-      - name: Upload result
-        uses: actions/upload-artifact@v4
-        with:
-          name: notebook-output
-          path: out/output.ipynb
+          papermill "[Jobsgo][Pipeline_Region].ipynb" /dev/null
+
