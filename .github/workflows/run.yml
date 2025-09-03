@@ -1,30 +1,22 @@
-name: Run Colab Script
-
+name: Run Notebook on Schedule
 on:
   schedule:
-    - cron: "0 0 * * *"   # chạy lúc 7h sáng VN (UTC+7)
-  workflow_dispatch:      # cho phép chạy thủ công
+    - cron: "0 17 * * *"   # 00:00 Asia/Ho_Chi_Minh = 17:00 UTC
+  workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install papermill jupyter
+      - name: Execute notebook
+        run: |
+          papermill notebooks/your_notebook.ipynb out/output.ipynb
+      - name: Upload result
+        uses: actions/upload-artifact@v4
         with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          pip install papermill jupyter
-
-      - name: Run Python script (alternative)
-        run: |
-          python '[jobsgo][pipeline_region].py' || true
-
-
-
+          name: notebook-output
+          path: out/output.ipynb
