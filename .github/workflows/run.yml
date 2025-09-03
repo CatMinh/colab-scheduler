@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Python script (alternative)
         run: |
-          python myscript.py || true
+          python [jobsgo][pipeline_region].py || true
 
       - name: Upload result as artifact
         uses: actions/upload-artifact@v4
