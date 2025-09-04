@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "7 1 * * *"   # 00:00 Asia/Ho_Chi_Minh = 17:00 UTC
+    - cron: "0 1 * * *"   # 00:00 Asia/Ho_Chi_Minh = 17:00 UTC
   workflow_dispatch:
 
 jobs:
